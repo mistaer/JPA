@@ -19,14 +19,23 @@ public class UsersController {
         return userJpaRespository.findAll();
     }
 
-    @GetMapping(value = "/{name}")
-    public Users findByName(@PathVariable final String name){
-        return userJpaRespository.findByName(name);
-    }
+//    @GetMapping(value = "/{name}")
+//    public Users findByName(@PathVariable final String name){
+//        return userJpaRespository.findByName(name);
+//    }
 
     @PostMapping(value = "/load")
     public Users load(@RequestBody final Users users) {
         userJpaRespository.save(users);
-        return userJpaRespository.findByName(users.getName());
+        return userJpaRespository.findById(users.getId());
+    }
+    @GetMapping(value = "/{id}")
+    public Users findById(@PathVariable final Long id){
+        return userJpaRespository.findById(id);
+    }
+    @DeleteMapping(value = "/{id}")
+    public void deleteById(@PathVariable final Long id){
+        userJpaRespository.delete(id);
+        
     }
 }
